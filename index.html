@@ -9,21 +9,22 @@
     <style>
         body {
             width: 100%;
-            height: 180vh;
-            background-image: linear-gradient(0deg, rgb(96, 213, 255), rgb(8, 76, 194));
+            height: 175vh;
+            background-image: linear-gradient(0deg, rgb(31, 175, 227), rgb(0, 60, 157));
             overflow: hidden;
 
         }
 
         .foguete {
             position: absolute;
-            top: 1000px;
-            left: 750px;
+            top: 510px;
+            left: 780px;
+            z-index: 2;
         }
 
         .planeta {
-            position: absolute;
-            top: 1000px;
+            position: fixed;
+            top: 560px;
             left: 70%;
             margin-left: -500px;
         }
@@ -31,8 +32,19 @@
 </head>
 
 <body>
+    <img id="foguete" src="foguete.gif" width="100px" class="foguete" onclick="SubirFoguete()";>
     <img src="planetinha.png" class="planeta" width="400px">
-    <img id="foguete" src="foguete.gif" width="100px" class="foguete">
+    
+
+    <audio id="audio1" controls autoplay="">
+        <source src="contagem_regressiva.mp3" type="audio/mp3">
+    </audio>
+    <audio id="audio2" controls autoplay="">
+        <source src="lancamento_foguete.mp3" type="audio/mp3">
+    </audio>
+    <audio id="audio3" controls autoplay="">
+        <source src="descer.mp3" type="audio/mp3">
+    </audio>
 
 </body>
 
@@ -40,6 +52,23 @@
 
 
 <script>
+
+    function SubirFoguete() {
+        audio1 = document.getElementById('audio1');
+        audio1.play();
+        temporizador = setTimeout(Subir, 20000)
+    }
+
+    function Tocar2() {
+        audio2 = document.getElementById('audio2');
+        audio2.play()
+        setTimeout(Tocar2, 20000)
+    }
+    function Tocar3() {
+        audio3 = document.getElementById('audio3');
+        audio3.play()
+        setTimeout(Tocar3, 38000)
+    }
 
     data = new Date()
     tempo_inicial = data.getTime()
@@ -58,38 +87,39 @@
         if (tempo_final - tempo_inicial > 1000) {
 
             tempo_inicial = tempo_final
-        }
 
-        if (tecla == 37) {
-            x = x - 20
-        }
-        if (tecla == 39) {
-            x = x + 20
+            if (tecla == 37) {
+
+                x = x - 5
+            }
+            if (tecla == 39) {
+                x = x + 5
+            }
         }
     }
 
-    temporizador = setTimeout(Subir, 1000)
-    x = 750
-    y = 500
-    TOPO = ""
-    ESQUERDA = ""
-    function Subir() {
-        TOPO = y + "px"
-        $("#foguete").animate({ top: TOPO }, 1000)
-        temporizador = null
-        temporizador = setInterval(Descer, 1000)
-    }
+        x = 750
+        y = 10
+        TOPO = ""
+        ESQUERDA = ""
 
-    function Descer() {
-        y = y + 20
-
-        if (y > 1000) {
-            y = 1000
+        function Subir() {
+            TOPO = y + "px"
+            $("#foguete").animate({ top: TOPO }, 20000)
+            temporizador = null
+            temporizador = setInterval(Descer, 1000)
         }
-        TOPO = y + "px"
-        ESQUERDA = x + "px"
-        $("#foguete").animate({ left: ESQUERDA, top: TOPO }, 1000)
-    }
+
+        function Descer() {
+            y = y + 20
+
+            if (y > 700) {
+                y = 700
+            }
+            TOPO = y + "px"
+            ESQUERDA = x + "px"
+            $("#foguete").animate({ left: ESQUERDA, top: TOPO }, 1000)
+        }
 </script>
 
 </html>
