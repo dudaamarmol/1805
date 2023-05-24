@@ -36,13 +36,13 @@
     <img src="planetinha.png" class="planeta" width="400px">
     
 
-    <audio id="audio1" controls autoplay="">
+    <audio id="audio1" autoplay="">
         <source src="contagem_regressiva.mp3" type="audio/mp3">
     </audio>
-    <audio id="audio2" controls autoplay="">
+    <audio id="audio2"  autoplay="">
         <source src="lancamento_foguete.mp3" type="audio/mp3">
     </audio>
-    <audio id="audio3" controls autoplay="">
+    <audio id="audio3"  autoplay="">
         <source src="descer.mp3" type="audio/mp3">
     </audio>
 
@@ -57,17 +57,19 @@
         audio1 = document.getElementById('audio1');
         audio1.play();
         temporizador = setTimeout(Subir, 20000)
+        setTimeout(Tocar2, 20000)
     }
 
     function Tocar2() {
         audio2 = document.getElementById('audio2');
         audio2.play()
-        setTimeout(Tocar2, 20000)
+        setTimeout(Tocar3, 18000)
+        
     }
     function Tocar3() {
         audio3 = document.getElementById('audio3');
         audio3.play()
-        setTimeout(Tocar3, 38000)
+        
     }
 
     data = new Date()
@@ -90,10 +92,10 @@
 
             if (tecla == 37) {
 
-                x = x - 5
+                x = x - 20
             }
             if (tecla == 39) {
-                x = x + 5
+                x = x + 20
             }
         }
     }
@@ -107,14 +109,18 @@
             TOPO = y + "px"
             $("#foguete").animate({ top: TOPO }, 20000)
             temporizador = null
+            temporizador = setTimeout(Descer2, 20000)
+        }
+
+        function Descer2(){
             temporizador = setInterval(Descer, 1000)
         }
 
         function Descer() {
-            y = y + 20
+            y = y + 30
 
-            if (y > 700) {
-                y = 700
+            if (y > 510) {
+                y = 510
             }
             TOPO = y + "px"
             ESQUERDA = x + "px"
